@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import {useEffect} from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -11,7 +12,7 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 export function ClearPinnedForm() {
-  const { register, handleSubmit } = useForm<FormValues>({
+  const { register, handleSubmit, watch } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
       notify_about_new_projects: false,
@@ -19,6 +20,12 @@ export function ClearPinnedForm() {
       notify_about_new_tasks: true,
     },
   });
+
+  const formValues=watch();
+
+  useEffect(() => {
+  console.log(formValues);
+}, [formValues]);
 
   const onSubmit = (data: FormValues) => {
     console.log(data);
@@ -80,10 +87,6 @@ export function ClearPinnedForm() {
         </label>
       </li>
     </ul>
-
-    <button type="submit">
-      Save
-    </button>
   </form>
 );
 }
