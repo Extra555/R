@@ -1,29 +1,42 @@
-import {useState} from "react";
-export default function Counter(){
-    const[mean, SetAction] = useState(0);
+import { useState } from "react";
+import ResetButton from "./reset-button";
 
-    async function Plus(){
-        SetAction( mean + 1);
-    }
+export default function Counter() {
+  const [mean, setMean] = useState(0);
 
-    async function Minus(){
-        SetAction(mean -1);
-    }
+  function plus() {
+    setMean(mean + 1);
+  }
 
-    return (
-        <form>
-        <div className="text-lg">
-            Hello, lets count! Your value rn is {mean}.
-            
-        </div>
+  function minus() {
+    setMean(mean - 1);
+  }
 
-        <div>
-            <ul>
-                <li><button type="button" onClick={()=>Plus()}/> Прибавить</li>
-                <li><button type="button" onClick={()=>Minus()}/>Отнять</li>
-                
-            </ul>
-        </div>
-        </form>
-    );
+  function RESETVALUE() {
+    setMean(0);
+  }
+
+  return (
+    <div>
+      <div className="text-lg">
+        Hello, lets count! Your value rn is {mean}.
+      </div>
+
+      <ul>
+        <li>
+          <button type="button" onClick={plus}>
+            Прибавить
+          </button>
+        </li>
+
+        <li>
+          <button type="button" onClick={minus}>
+            Отнять
+          </button>
+        </li>
+      </ul>
+
+      <ResetButton onClick={RESETVALUE} disabled={false} />
+    </div>
+  );
 }
